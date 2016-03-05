@@ -13,7 +13,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $response = $this->call('GET', '/');
+        $content = json_decode($response->getContent(), true);
+        $this->assertInternalType('array', $content, 'Invalid JSON');
     }
 }
