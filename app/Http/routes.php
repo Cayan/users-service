@@ -25,5 +25,10 @@
 Route::group([
     'middleware' => ['api']
 ], function() {
-    Route::get('/', ['as' => 'index', 'uses' => 'APIController@index']);
+    Route::options('', ['as' => 'options', 'uses' => 'UserController@options']);
+    Route::get('{id}', ['as' => 'read', 'uses' => 'UserController@read']);
+    Route::get('', ['as' => 'index', 'uses' => 'UserController@index']);
+    Route::post('', ['as' => 'create', 'uses' => 'UserController@create']);
+    Route::put('{id}', ['as' => 'update', 'uses' => 'UserController@update']);
+    Route::delete('{id}', ['as' => 'delete', 'uses' => 'UserController@delete']);
 });
