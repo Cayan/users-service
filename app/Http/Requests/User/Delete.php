@@ -24,7 +24,7 @@ class Delete extends Request
     public function rules()
     {
         return [
-            'id' => 'required:exists:user,id'
+            'id' => 'required|exists:users,id'
         ];
     }
 }

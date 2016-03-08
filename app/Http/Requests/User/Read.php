@@ -24,7 +24,7 @@ class Read extends Request
     public function rules()
     {
         return [
-            'id' => 'required:exists:user,id'
+
         ];
     }
 }

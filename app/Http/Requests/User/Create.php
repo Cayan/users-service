@@ -24,7 +24,7 @@ class Create extends Request
     public function rules()
     {
         return [
-            'name' => 'alpha|required',
+            'name' => 'required',
             'email' => 'email|required',
             'password' => 'required',
             'password_confirmation' => 'required'

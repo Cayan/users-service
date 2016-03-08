@@ -38,11 +38,15 @@ class UserController extends Controller
 
     /**
      * @param Requests\User\Read $request
+     * @param integer $id
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function read(Requests\User\Read $request)
+    public function read(Requests\User\Read $request, $id)
     {
-        $user = User::where($request->all())->first();
+        $user = User::where(['id' => $id])->first();
+        if (!$user) {
+            return response(null, Http\Response::HTTP_BAD_REQUEST);
+        }
 
         return response($user);
     }
@@ -53,7 +57,11 @@ class UserController extends Controller
      */
     public function update(Requests\User\Update $request)
     {
-        $user = User::find($request->input('id'));
+        $user = User::where(['id' => $request->input('id')])->first();
+        if (!$user) {
+            return response(null, Http\Response::HTTP_BAD_REQUEST);
+        }
+
         $user->fill($request->all());
         $user->save();
 
@@ -66,7 +74,7 @@ class UserController extends Controller
      */
     public function delete(Requests\User\Delete $request)
     {
-        $user = User::where($request->all())->first();
+        $user = User::where(['id' => $request->input('id')])->first();
         $user->delete();
 
         return response(null, Http\Response::HTTP_NO_CONTENT);

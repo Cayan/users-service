@@ -24,11 +24,7 @@ class Update extends Request
     public function rules()
     {
         return [
-            'id' => 'required|integer',
-            'name' => 'alpha',
-            'email' => 'email',
-            'password' => 'required',
-            'password_confirmation' => 'required'
+            'id' => 'required|exists:users,id'
         ];
     }
 }

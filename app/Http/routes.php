@@ -29,6 +29,6 @@ Route::group([
     Route::get('{id}', ['as' => 'read', 'uses' => 'UserController@read']);
     Route::get('', ['as' => 'index', 'uses' => 'UserController@index']);
     Route::post('', ['as' => 'create', 'uses' => 'UserController@create']);
-    Route::put('{id}', ['as' => 'update', 'uses' => 'UserController@update']);
-    Route::delete('{id}', ['as' => 'delete', 'uses' => 'UserController@delete']);
+    Route::put('', ['as' => 'update', 'uses' => 'UserController@update']);
+    Route::delete('', ['as' => 'delete', 'uses' => 'UserController@delete']);
 });
