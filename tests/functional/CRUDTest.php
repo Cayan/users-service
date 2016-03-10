@@ -49,16 +49,6 @@ class UserCRUDTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testReadFail()
-    {
-        $response = $this->call('GET', '/3');
-
-        $actual = $response->getStatusCode();
-        $expected = \Illuminate\Http\Response::HTTP_BAD_REQUEST;
-
-        $this->assertEquals($expected, $actual);
-    }
-
     public function testCreate()
     {
         $password = str_random(20);
