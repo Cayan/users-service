@@ -45,7 +45,7 @@ class UserController extends Controller
     {
         $user = User::where(['id' => $id])->first();
         if (!$user) {
-            return response(null, Http\Response::HTTP_BAD_REQUEST);
+            return response(null, Http\Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return response($user);
@@ -58,10 +58,6 @@ class UserController extends Controller
     public function update(Requests\User\Update $request)
     {
         $user = User::where(['id' => $request->input('id')])->first();
-        if (!$user) {
-            return response(null, Http\Response::HTTP_BAD_REQUEST);
-        }
-
         $user->fill($request->all());
         $user->save();
 

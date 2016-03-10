@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserCRUDTest extends TestCase
+class UserCRUDFailureTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
@@ -15,12 +15,29 @@ class UserCRUDTest extends TestCase
         factory(App\User::class)->create();
     }
 
-    public function testReadFail()
+    public function testRead()
     {
         $response = $this->call('GET', '/3');
 
         $actual = $response->getStatusCode();
-        $expected = \Illuminate\Http\Response::HTTP_BAD_REQUEST;
+        $expected = \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY;
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testUpdate()
+    {
+        $newName = 'Daniel Pinto';
+        $response = $this->call('PUT', '/', [
+            'id' => 3,
+            'name' => $newName
+        ], [], [], $this->transformHeadersToServerVars([
+            'Accept' => 'application/json',
+            'CONTENT_TYPE' => 'x-www-form-urlencoded'
+        ]));
+
+        $actual = $response->getStatusCode();
+        $expected = \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY;
 
         $this->assertEquals($expected, $actual);
     }
